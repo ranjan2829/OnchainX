@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-app=FastAPI()
+
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -8,8 +9,9 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-
 )
+
+
 @app.get("/")
 def read_root():
-    return {"message":"Hello World !"}
+    return {"message": "Hello World !"}
