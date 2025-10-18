@@ -15,9 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
-@app.on_event("startup")
-async def startup_event():
-    create_tables()
+# Database tables will be created on first connection
     
 @app.get("/")
 def read_root():

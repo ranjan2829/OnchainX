@@ -68,7 +68,7 @@ class DatabaseService:
         db_wallet = Wallet(
             user_id=user_id,
             address=wallet_data.address,
-            wallet_type=wallet_data.wallet_type,
+            wallet_type="metamask",
             is_primary=is_primary,
         )
         db.add(db_wallet)

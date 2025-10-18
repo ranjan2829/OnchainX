@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_access_token_expire_minutes: int = 30
 
-    app_name = "OnchainX"
+    app_name: str = "OnchainX"
     debug: bool = True
     cors_origins: List[str] = ["http://localhost:3000", "https://onchain-x.vercel.app"]
 
