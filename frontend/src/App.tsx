@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import AuthContainer from './components/AuthContainer';
+import Dashboard from './components/Dashboard';
 import './App.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const AppContent: React.FC = () => {
+  const { isAuthenticated, loading } = useAuth();
 
-function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch(`${API_URL}/`)
-      .then(response => response.json())
-      .then(data => setMessage(data.message))
-      .catch(error => console.error('Error:', error));
-  }, []);
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
-      <h1 className="brand-name">OnchainX</h1>
-      {message && <p className="api-message">{message}</p>}
+      {isAuthenticated ? <Dashboard /> : <AuthContainer />}
     </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
