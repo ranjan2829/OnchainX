@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import AuthContainer from './components/AuthContainer';
+import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import './App.css';
 
@@ -18,7 +18,7 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="App">
-      {isAuthenticated ? <Dashboard /> : <AuthContainer />}
+      {isAuthenticated ? <Dashboard /> : <LandingPage />}
     </div>
   );
 };
