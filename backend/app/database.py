@@ -3,21 +3,29 @@ from sqlalchemy.orm import sessionmaker
 from .config import settings
 from .models import Base
 
-# Convert postgresql:// to postgresql+asyncpg:// for asyncpg driver
-database_url = settings.database_url
-if database_url and database_url.startswith("postgresql://"):
-    database_url = database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+# Lazy initialization to avoid import errors
+_engine = None
+_SessionLocal = None
 
-engine = create_engine(database_url)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+def get_engine():
+    global _engine
+    if _engine is None:
+        _engine = create_engine(settings.database_url)
+    return _engine
+
+def get_session_local():
+    global _SessionLocal
+    if _SessionLocal is None:
+        _SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=get_engine())
+    return _SessionLocal
 
 
 def create_tables():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=get_engine())
 
 
 def get_db():
-    db = SessionLocal()
+    db = get_session_local()()
     try:
         yield db
     finally:
