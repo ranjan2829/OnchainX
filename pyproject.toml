@@ -17,7 +17,7 @@ dependencies = [
     "passlib[bcrypt]==1.7.4",
     "python-dotenv==1.0.1",
     "sqlalchemy==2.0.35",
-    "psycopg2-binary==2.8.6",
+    "asyncpg==0.29.0",
     "stripe==11.1.0",
     "httpx>=0.24,<0.26",
     "supabase==2.22.0",
